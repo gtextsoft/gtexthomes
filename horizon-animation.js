@@ -1,41 +1,49 @@
-// Real Estate City Animation - Three.js
+// Real Estate City Animation - Three.js (Optimized)
 (function() {
   'use strict';
 
-  // Check if Three.js and GSAP are loaded
   if (typeof THREE === 'undefined' || typeof gsap === 'undefined') {
     console.error('Three.js or GSAP not loaded');
     return;
   }
 
-  // Register GSAP ScrollTrigger plugin
   if (gsap.registerPlugin) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
   const container = document.querySelector('.horizon-section');
   const canvas = document.getElementById('horizon-canvas');
-  
-  if (!container || !canvas) {
-    return;
-  }
+  if (!container || !canvas) return;
 
-  // Three.js setup
   let scene, camera, renderer;
   let buildings = [];
   let cityLights = [];
   let ground = null;
   let animationId = null;
+  let isVisible = true;
+  let scrollTicking = false;
+  let frameCount = 0;
   
   const smoothCameraPos = { x: 0, y: 50, z: 200 };
   let targetCameraX = 0;
   let targetCameraY = 50;
   let targetCameraZ = 200;
-  
   let scrollProgress = 0;
   let isReady = false;
 
-  // Initialize Three.js
+  // Shared geometries & materials (reused for performance)
+  const shared = {
+    edgeGeometry: null,
+    ledgeGeometry: null,
+    roofGeometry: null,
+    windowGeometry: null,
+    edgeMaterial: null,
+    ledgeMaterial: null,
+    roofMaterial: null,
+    windowMaterialWhite: null,
+    windowMaterialYellow: null
+  };
+
   function initThree() {
     // Scene setup
     scene = new THREE.Scene();
@@ -52,16 +60,18 @@
     camera.position.set(0, 50, 200);
     camera.lookAt(0, 30, 0);
 
-    // Renderer
+    // Renderer (antialias off for faster render, powerPreference for GPU)
     renderer = new THREE.WebGLRenderer({
       canvas: canvas,
-      antialias: true,
-      alpha: true
+      antialias: false,
+      alpha: true,
+      powerPreference: 'high-performance'
     });
     
     const containerRect = container.getBoundingClientRect();
     renderer.setSize(containerRect.width, containerRect.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const dpr = Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.5 : 2);
+    renderer.setPixelRatio(dpr);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.8;
 
@@ -150,8 +160,8 @@
 
   function createCitySkyline() {
     buildings = [];
-    const buildingCount = 50;
-    const spacing = 30;
+    const buildingCount = 35;
+    const spacing = 35;
     const startX = -(buildingCount * spacing) / 2;
 
     for (let i = 0; i < buildingCount; i++) {
@@ -161,22 +171,14 @@
       const x = startX + i * spacing + (Math.random() - 0.5) * 15;
       const z = (Math.random() - 0.5) * 150;
 
-      // Create building group for better 3D structure
       const buildingGroup = new THREE.Group();
-      
-      // Main building body
       const geometry = new THREE.BoxGeometry(width, height, depth);
       
-      // Building color - mix of white, light gray, and accent red
       const colorChoice = Math.random();
       let buildingColor;
-      if (colorChoice < 0.7) {
-        buildingColor = new THREE.Color(0xffffff);
-      } else if (colorChoice < 0.9) {
-        buildingColor = new THREE.Color(0xf5f5f5);
-      } else {
-        buildingColor = new THREE.Color(0xd70f26); // Accent red
-      }
+      if (colorChoice < 0.7) buildingColor = 0xffffff;
+      else if (colorChoice < 0.9) buildingColor = 0xf5f5f5;
+      else buildingColor = 0xd70f26;
 
       const material = new THREE.MeshStandardMaterial({
         color: buildingColor,
@@ -192,69 +194,20 @@
       building.receiveShadow = true;
       buildingGroup.add(building);
 
-      // Add architectural details for 3D depth
-      // Add corner edges/columns
-      const edgeWidth = 0.8;
-      const edgeGeometry = new THREE.BoxGeometry(edgeWidth, height, edgeWidth);
-      const edgeMaterial = new THREE.MeshStandardMaterial({
-        color: 0xcccccc,
-        metalness: 0.5,
-        roughness: 0.4
-      });
-
-      // Four corners
-      const corners = [
-        { x: width/2 - edgeWidth/2, z: depth/2 - edgeWidth/2 },
-        { x: -width/2 + edgeWidth/2, z: depth/2 - edgeWidth/2 },
-        { x: width/2 - edgeWidth/2, z: -depth/2 + edgeWidth/2 },
-        { x: -width/2 + edgeWidth/2, z: -depth/2 + edgeWidth/2 }
-      ];
-
-      corners.forEach(corner => {
-        const edge = new THREE.Mesh(edgeGeometry, edgeMaterial);
-        edge.position.set(corner.x, height / 2, corner.z);
-        edge.castShadow = true;
-        buildingGroup.add(edge);
-      });
-
-      // Add horizontal bands/ledges every few floors
-      const floorHeight = 8;
-      const floors = Math.floor(height / floorHeight);
-      for (let f = 1; f < floors; f += 3) {
-        const ledgeGeometry = new THREE.BoxGeometry(width + 0.5, 0.3, depth + 0.5);
-        const ledgeMaterial = new THREE.MeshStandardMaterial({
-          color: 0xaaaaaa,
-          metalness: 0.6,
-          roughness: 0.3
+      // Roof (shared geometry scaled per-building)
+      if (!shared.roofGeometry) {
+        shared.roofGeometry = new THREE.BoxGeometry(1, 2, 1);
+        shared.roofMaterial = new THREE.MeshStandardMaterial({
+          color: 0x888888, metalness: 0.7, roughness: 0.2
         });
-        const ledge = new THREE.Mesh(ledgeGeometry, ledgeMaterial);
-        ledge.position.y = f * floorHeight;
-        buildingGroup.add(ledge);
       }
-
-      // Add roof details
-      const roofGeometry = new THREE.BoxGeometry(width + 1, 2, depth + 1);
-      const roofMaterial = new THREE.MeshStandardMaterial({
-        color: 0x888888,
-        metalness: 0.7,
-        roughness: 0.2
-      });
-      const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+      const roof = new THREE.Mesh(shared.roofGeometry, shared.roofMaterial);
+      roof.scale.set(width + 1, 1, depth + 1);
       roof.position.y = height + 1;
       buildingGroup.add(roof);
 
       buildingGroup.position.set(x, 0, z);
-      
-      // Store building data for lights
-      buildingGroup.userData = {
-        width,
-        height,
-        depth,
-        floors: Math.floor(height / 8),
-        baseX: x,
-        baseZ: z
-      };
-
+      buildingGroup.userData = { width, height, depth, floors: Math.floor(height / 8), baseX: x, baseZ: z };
       scene.add(buildingGroup);
       buildings.push(buildingGroup);
     }
@@ -262,55 +215,39 @@
 
   function createCityLights() {
     cityLights = [];
+    if (!shared.windowGeometry) {
+      shared.windowGeometry = new THREE.PlaneGeometry(3, 4);
+      shared.windowMaterialWhite = new THREE.MeshBasicMaterial({
+        color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 1.8,
+        transparent: true, opacity: 0.9
+      });
+      shared.windowMaterialYellow = new THREE.MeshBasicMaterial({
+        color: 0xffaa00, emissive: 0xffaa00, emissiveIntensity: 1.8,
+        transparent: true, opacity: 0.9
+      });
+    }
     
-    buildings.forEach((buildingGroup, i) => {
+    buildings.forEach((buildingGroup) => {
       const { width, height, depth, floors, baseX, baseZ } = buildingGroup.userData;
-      
-      // Create windows on all four sides
       const sides = [
-        { axis: 'x', pos: width/2 - 0.1, rot: Math.PI/2, windows: Math.floor(width / 5) },
-        { axis: 'x', pos: -width/2 + 0.1, rot: -Math.PI/2, windows: Math.floor(width / 5) },
-        { axis: 'z', pos: depth/2 - 0.1, rot: 0, windows: Math.floor(depth / 5) },
-        { axis: 'z', pos: -depth/2 + 0.1, rot: Math.PI, windows: Math.floor(depth / 5) }
+        { axis: 'x', pos: width/2 - 0.1, rot: Math.PI/2, windows: Math.min(4, Math.floor(width / 6)) },
+        { axis: 'x', pos: -width/2 + 0.1, rot: -Math.PI/2, windows: Math.min(4, Math.floor(width / 6)) },
+        { axis: 'z', pos: depth/2 - 0.1, rot: 0, windows: Math.min(4, Math.floor(depth / 6)) },
+        { axis: 'z', pos: -depth/2 + 0.1, rot: Math.PI, windows: Math.min(4, Math.floor(depth / 6)) }
       ];
       
       sides.forEach(side => {
-        for (let floor = 1; floor < floors; floor++) {
+        for (let floor = 1; floor < floors; floor += 2) {
           for (let w = 0; w < side.windows; w++) {
-            if (Math.random() > 0.25) { // 75% chance of lit window
+            if (Math.random() > 0.4) {
               const windowY = floor * 8 - height / 2 + 4;
-              let windowX, windowZ;
-              
-              if (side.axis === 'x') {
-                windowX = side.pos;
-                windowZ = (w / side.windows - 0.5) * width;
-              } else {
-                windowX = (w / side.windows - 0.5) * depth;
-                windowZ = side.pos;
-              }
-
-              const lightGeometry = new THREE.PlaneGeometry(3, 4);
-              const lightColor = Math.random() > 0.75 
-                ? new THREE.Color(0xffaa00) // Warm yellow
-                : new THREE.Color(0xffffff); // White
-              
-              const lightMaterial = new THREE.MeshBasicMaterial({
-                color: lightColor,
-                emissive: lightColor,
-                emissiveIntensity: 1.8,
-                transparent: true,
-                opacity: 0.9
-              });
-
-              const window = new THREE.Mesh(lightGeometry, lightMaterial);
-              window.position.set(
-                baseX + windowX,
-                windowY,
-                baseZ + windowZ
-              );
+              const windowX = side.axis === 'x' ? side.pos : (w / side.windows - 0.5) * depth;
+              const windowZ = side.axis === 'x' ? (w / side.windows - 0.5) * width : side.pos;
+              const mat = Math.random() > 0.75 ? shared.windowMaterialYellow : shared.windowMaterialWhite;
+              const window = new THREE.Mesh(shared.windowGeometry, mat);
+              window.position.set(baseX + windowX, windowY, baseZ + windowZ);
               window.rotation.y = side.rot;
               window.rotation.x = -Math.PI / 2;
-
               buildingGroup.add(window);
               cityLights.push(window);
             }
@@ -321,27 +258,20 @@
   }
 
   function createGround() {
-    const groundGeometry = new THREE.PlaneGeometry(2000, 2000, 50, 50);
+    const groundGeometry = new THREE.PlaneGeometry(2000, 2000, 20, 20);
     const groundMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1a1a1a,
-      roughness: 0.8,
-      metalness: 0.1
+      color: 0x1a1a1a, roughness: 0.8, metalness: 0.1
     });
-
     ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.rotation.x = -Math.PI / 2;
-    ground.position.y = 0;
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // Add road lines
-    for (let i = -500; i < 500; i += 50) {
-      const lineGeometry = new THREE.PlaneGeometry(2000, 0.5);
-      const lineMaterial = new THREE.MeshBasicMaterial({
-        color: 0x333333,
-        transparent: true,
-        opacity: 0.3
-      });
+    const lineGeometry = new THREE.PlaneGeometry(2000, 0.5);
+    const lineMaterial = new THREE.MeshBasicMaterial({
+      color: 0x333333, transparent: true, opacity: 0.3
+    });
+    for (let i = -400; i <= 400; i += 80) {
       const line = new THREE.Mesh(lineGeometry, lineMaterial);
       line.rotation.x = -Math.PI / 2;
       line.position.set(0, 0.1, i);
@@ -354,12 +284,11 @@
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
     scene.add(ambientLight);
 
-    // Directional light (sun/moon) - enhanced for better 3D shadows
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
     directionalLight.position.set(50, 150, 50);
     directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.width = 4096;
-    directionalLight.shadow.mapSize.height = 4096;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
     directionalLight.shadow.camera.near = 0.5;
     directionalLight.shadow.camera.far = 1000;
     directionalLight.shadow.camera.left = -200;
@@ -373,9 +302,8 @@
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-    // Point lights for building glow
     buildings.forEach((building, i) => {
-      if (i % 5 === 0) {
+      if (i % 8 === 0) {
         const pointLight = new THREE.PointLight(0xffffff, 0.5, 100);
         pointLight.position.set(
           building.position.x,
@@ -389,10 +317,11 @@
 
   function animate() {
     animationId = requestAnimationFrame(animate);
+    if (!isVisible) return;
     
     const time = Date.now() * 0.001;
+    frameCount++;
 
-    // Smooth camera movement with tour-like feel
     if (camera) {
       const smoothingFactor = 0.08;
       
@@ -420,23 +349,25 @@
       }
     }
 
-    // Animate city lights (twinkling effect)
-    cityLights.forEach((light, i) => {
-      const twinkle = Math.sin(time * 2 + i * 0.1) * 0.3 + 0.7;
-      light.material.opacity = twinkle * 0.8;
-      light.material.emissiveIntensity = twinkle * 1.5;
-    });
+    // Twinkle lights every 2nd frame (shared materials - only update a subset)
+    if (frameCount % 2 === 0 && cityLights.length > 0) {
+      const twinkle = Math.sin(time * 2) * 0.3 + 0.7;
+      shared.windowMaterialWhite.opacity = twinkle * 0.8;
+      shared.windowMaterialWhite.emissiveIntensity = twinkle * 1.5;
+      shared.windowMaterialYellow.opacity = twinkle * 0.8;
+      shared.windowMaterialYellow.emissiveIntensity = twinkle * 1.5;
+    }
 
-    // Subtle building rotation for 3D depth perception
-    buildings.forEach((buildingGroup, i) => {
-      const parallax = Math.sin(time * 0.03 + i * 0.1) * 0.3;
-      buildingGroup.rotation.y = parallax * 0.005;
-    });
+    if (frameCount % 4 === 0) {
+      buildings.forEach((bg, i) => {
+        const parallax = Math.sin(time * 0.03 + i * 0.1) * 0.3;
+        bg.rotation.y = parallax * 0.005;
+      });
+    }
 
     renderer.render(scene, camera);
   }
 
-  // Scroll handling - Tour-like camera movement
   function handleScroll() {
     const scrollY = window.scrollY;
     if (!container) return;
@@ -505,17 +436,17 @@
     });
   }
 
-  // Handle resize
+  let resizeTimeout;
   function handleResize() {
     if (!container || !camera || !renderer) return;
-    
-    const containerRect = container.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
-    
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const rect = container.getBoundingClientRect();
+      camera.aspect = rect.width / rect.height;
+      camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth < 768 ? 1.5 : 2));
+      renderer.setSize(rect.width, rect.height);
+    }, 100);
   }
 
   // Initialize when DOM is ready
@@ -525,33 +456,41 @@
     initThree();
   }
 
-  window.addEventListener('scroll', handleScroll);
+  function onScrollThrottled() {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        handleScroll();
+        scrollTicking = false;
+      });
+    }
+  }
+
+  const intersectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        isVisible = e.isIntersecting;
+      });
+    },
+    { rootMargin: '100px', threshold: 0 }
+  );
+  if (container) intersectionObserver.observe(container);
+
+  window.addEventListener('scroll', onScrollThrottled, { passive: true });
   window.addEventListener('resize', handleResize);
   handleScroll();
 
-  // Cleanup on page unload
   window.addEventListener('beforeunload', () => {
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-    }
-    
-    buildings.forEach(building => {
-      building.geometry.dispose();
-      building.material.dispose();
+    if (animationId) cancelAnimationFrame(animationId);
+    scene?.traverse((obj) => {
+      if (obj.geometry) obj.geometry.dispose();
+      if (obj.material) {
+        if (Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+        else obj.material.dispose();
+      }
     });
-
-    cityLights.forEach(light => {
-      light.geometry.dispose();
-      light.material.dispose();
-    });
-
-    if (ground) {
-      ground.geometry.dispose();
-      ground.material.dispose();
-    }
-
-    if (renderer) {
-      renderer.dispose();
-    }
+    [shared.windowGeometry, shared.edgeGeometry, shared.ledgeGeometry, shared.roofGeometry].forEach(g => g?.dispose());
+    [shared.edgeMaterial, shared.ledgeMaterial, shared.roofMaterial, shared.windowMaterialWhite, shared.windowMaterialYellow].forEach(m => m?.dispose());
+    renderer?.dispose();
   });
 })();

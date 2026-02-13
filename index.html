@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>GTEXT HOMES – Real Estate Company</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +18,8 @@
       <a class="brand" href="#">
         <img src="images/gtexthomes-logo.jpg" alt="GTEXT HOMES" class="brand-logo" />
       </a>
-      <nav class="main-nav" aria-label="Primary">
+      <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
+      <nav class="main-nav" aria-label="Primary" id="main-nav">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
@@ -26,7 +27,14 @@
         <a href="#insights">Insights</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="btn btn-outline" href="tel:+2348143876711">+234 (0) 8143876711</a>
+      <div class="header-actions">
+        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <a class="btn btn-outline" href="tel:+2348143876711">+234 (0) 8143876711</a>
+      </div>
     </div>
   </header>
 
@@ -81,21 +89,41 @@
           <h2>Discover our under construction and complete projects</h2>
         </div>
         <div class="cards">
-          <article class="card">
-            <h3>Jasper Estate Abuja – 4Bed Rooms</h3>
-            <p>Abuja, NG</p>
+          <article class="card project-card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="Jasper Estate Abuja – 4Bed Rooms" class="project-image" />
+            </div>
+            <div class="card-content">
+              <h3>Jasper Estate Abuja – 4Bed Rooms</h3>
+              <p>Abuja, NG</p>
+            </div>
           </article>
-          <article class="card">
-            <h3>Jasper Estate Abuja – 5Bed Rooms</h3>
-            <p>Abuja, NG</p>
+          <article class="card project-card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Jasper Estate Abuja – 5Bed Rooms" class="project-image" />
+            </div>
+            <div class="card-content">
+              <h3>Jasper Estate Abuja – 5Bed Rooms</h3>
+              <p>Abuja, NG</p>
+            </div>
           </article>
-          <article class="card">
-            <h3>Jasper Gardenia Estate Lagos – 4Bed Rooms</h3>
-            <p>Lagos, NG</p>
+          <article class="card project-card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop" alt="Jasper Gardenia Estate Lagos – 4Bed Rooms" class="project-image" />
+            </div>
+            <div class="card-content">
+              <h3>Jasper Gardenia Estate Lagos – 4Bed Rooms</h3>
+              <p>Lagos, NG</p>
+            </div>
           </article>
-          <article class="card">
-            <h3>Jasper Gardenia Estate Lagos – 5Bed Rooms</h3>
-            <p>Lagos, NG</p>
+          <article class="card project-card">
+            <div class="card-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop" alt="Jasper Gardenia Estate Lagos – 5Bed Rooms" class="project-image" />
+            </div>
+            <div class="card-content">
+              <h3>Jasper Gardenia Estate Lagos – 5Bed Rooms</h3>
+              <p>Lagos, NG</p>
+            </div>
           </article>
         </div>
       </div>
