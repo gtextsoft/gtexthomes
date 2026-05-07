@@ -1,328 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>GTEXT HOMES - Real Estate Company</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GText Homes | Luxury Real Estate & Smart Homes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#home">
-        <img src="images/gtexthomes-logo.jpg" alt="GTEXT HOMES" class="brand-logo" />
-      </a>
-      <div class="nav-overlay" id="nav-overlay" aria-hidden="true"></div>
-      <nav class="main-nav" aria-label="Primary" id="main-nav">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <!-- <a href="#services">Services</a> -->
-        <a href="#projects">Projects</a>
-        <!-- <a href="#insights">Insights</a> -->
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-        </button>
-        <a class="btn btn-outline header-whatsapp"
-          href="https://wa.me/2348142590965?text=Hello%20Gtext%20Homes%2C%20I%20am%20interested%20in%20investing%20in%20your%20Green%20%26%20Smart%20Estates.%20I%20would%20like%20to%20speak%20with%20an%20expert."
-          target="_blank" style="display: flex; align-items: center; gap: 8px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-          </svg>
-          <span class="header-whatsapp-text">Chat with an Expert</span>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section id="home" class="hero" aria-label="Hero video">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="video/hero-vid.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-overlay">
-        <div class="container hero-content">
-          <p class="eyebrow hero-kicker">Africa's Premier Green & Smart Developer</p>
-          <h1>The Future of Luxury is Green. <br> The Future of Investing is Smart.</h1>
-          <p>Experience the pinnacle of sustainable living in Lagos & Abuja. Secure your future with high-appreciation
-            smart estates.</p>
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-accent">View Estates</a>
-            <button class="btn btn-outline btn-inquiry" data-title="Expert Consultation">Consult an Expert</button>
-          </div>
+    <nav class="main-nav">
+        <div class="container nav-wrap">
+            <div class="brand">GTEXT<span style="color:var(--brand-red)">HOMES</span></div>
+            <ul class="links">
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#why">Why Us</a></li>
+                <li><a href="#invest">Investment</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-      </div>
-    </section>
+    </nav>
 
-    <section id="about" class="horizon-section">
-      <canvas id="horizon-canvas" class="horizon-canvas"></canvas>
-
-      <!-- Content overlay -->
-      <div class="horizon-content">
-        <div class="container two-col">
-          <div>
-            <p class="eyebrow">Our Vision</p>
-            <h1>Building a Sustainable Future, Today.</h1>
-          </div>
-          <p class="lead">
-            At Gtext Homes, we don't just build houses; we curate eco-friendly ecosystems. Our "Green and Smart"
-            philosophy ensures your home is a sanctuary of health, a fortress of security, and a powerhouse of
-            investment value. Join the revolution of conscious living in the heart of Nigeria's fastest-growing
-            corridors.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="why" class="section reveal">
-      <div class="container">
-        <div class="section-head text-center" style="text-align: center; max-width: 700px; margin: 0 auto 60px;">
-          <p class="eyebrow">The Value Proposition</p>
-          <h2>Why Choose a Green & Smart Home?</h2>
-          <p class="lead">We integrate cutting-edge technology with sustainable practices to create homes that work for
-            you and the planet.</p>
-        </div>
-
-        <div class="cards-3">
-          <div class="card glass-card reveal">
-            <div class="card-icon" style="font-size: 2.5rem; margin-bottom: 20px;">🔋</div>
-            <h3>Energy Efficiency</h3>
-            <p>Our homes use renewable energy sources and smart energy management to reduce your utility bills by up to
-              40% while ensuring 24/7 power.</p>
-          </div>
-
-          <div class="card glass-card reveal">
-            <div class="card-icon" style="font-size: 2.5rem; margin-bottom: 20px;">🛡️</div>
-            <h3>Smart Security</h3>
-            <p>Integrated AI-driven security systems allow you to monitor and control your home from anywhere in the
-              world, providing peace of mind.</p>
-          </div>
-
-          <div class="card glass-card reveal">
-            <div class="card-icon" style="font-size: 2.5rem; margin-bottom: 20px;">📈</div>
-            <h3>High Appreciation</h3>
-            <p>Strategic locations in Ibeju-Lekki and Abuja mean your investment is positioned for rapid value growth,
-              outperforming traditional savings.</p>
-          </div>
-
-          <div class="card glass-card reveal">
-            <div class="card-icon" style="font-size: 2.5rem; margin-bottom: 20px;">🍃</div>
-            <h3>Health & Longevity</h3>
-            <p>Green building materials and air purification systems ensure a healthier living environment for you and
-              your family.</p>
-          </div>
-
-          <div class="card glass-card reveal">
-            <div class="card-icon" style="font-size: 2.5rem; margin-bottom: 20px;">💧</div>
-            <h3>Resource Optimization</h3>
-            <p>Smart water management and waste-to-biogas systems ensure a zero-waste lifestyle without compromising on
-              luxury.</p>
-          </div>
-
-          <div class="card glass-card reveal">
-            <div class="card-icon" style="font-size: 2.5rem; margin-bottom: 20px;">🏘️</div>
-            <h3>Vibrant Community</h3>
-            <p>Join a community of forward-thinking individuals who value technology, sustainability, and high-quality
-              living.</p>
-          </div>
-        </div>
-        <div class="text-center" style="text-align: center; margin-top: 50px;">
-          <p class="lead" style="margin-bottom: 20px;">Interested in seeing our work in person? Book a private tour of
-            our green estates.</p>
-          <button class="btn btn-accent btn-inquiry" data-title="Site Visit Request">Book a Site Tour</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects" class="section section-dark reveal">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">Featured Portfolio</p>
-          <h2>High-Appreciation Smart Estates</h2>
-        </div>
-        <div id="project-list" class="cards-3">
-          <!-- Projects dynamically rendered from data.js -->
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">The Visionaries</p>
-          <h2>Leadership driving sustainable innovation</h2>
-        </div>
-        <div id="leadership-list" class="cards leadership-cards">
-          <!-- Leadership team dynamically rendered from leadership.js -->
-        </div>
-      </div>
-    </section>
-
-    <!--
-    <section id="insights" class="section section-dark">
-      <div class="container">
-        <div class="section-head">
-          <p class="eyebrow">From our blog</p>
-          <h2>Latest news &amp; events</h2>
-        </div>
-        <div id="blog-list" class="cards">
-          Blog posts dynamically rendered from data.js
-        </div>
-      </div>
-    </section>
-    -->
-
-    <section id="contact" class="section reveal">
-      <div class="container">
-        <div class="cta-premium">
-          <div class="cta-content">
-            <p class="eyebrow" style="color: var(--accent-gold);">Start Your Journey</p>
-            <h2>Ready to invest in the future of sustainable living?</h2>
-            <p class="lead" style="color: rgba(255,255,255,0.85);">Our consultants are ready to guide you through our high-yield portfolio in Lagos and Abuja. Secure your green home today.</p>
-          </div>
-          <div class="cta-actions">
-            <button class="btn btn-solid btn-inquiry" data-title="General Inquiry">Send Inquiry</button>
-            <a href="tel:+2348142590965" class="btn btn-outline-white">Call Sales</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-main">
-      <div class="footer-brand">
-        <img src="images/gtexthomes-logo.jpg" alt="GTEXT HOMES" class="footer-logo" />
-        <p class="footer-tagline">Africa's leading developer of green and smart real estate ecosystems. Innovation driven, sustainability focused.</p>
-        <div class="footer-contact-grid">
-          <div class="contact-card">
-            <div class="contact-card-icon">📍</div>
-            <div class="contact-card-info">
-              <h4>Offices</h4>
-              <p>Lagos, Abuja, USA, UK, UAE</p>
+    <header>
+        <img src="assets/hero.png" alt="Luxury Home" class="hero-img">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span>PREMIUM REAL ESTATE</span>
+                <h1>Luxury Living <br>Redefined.</h1>
+                <p>GText Homes is the global leader in luxury real estate and smart home development. We build for the future, blending comfort with technology.</p>
+                <div class="hero-btns">
+                    <a href="#properties" class="btn btn-primary">View Properties</a>
+                    <a href="#" class="btn" style="border: 1px solid white; color: white; margin-left: 1rem;">Speak to an Expert</a>
+                </div>
             </div>
-          </div>
-          <div class="contact-card">
-            <div class="contact-card-icon">📧</div>
-            <div class="contact-card-info">
-              <h4>Email</h4>
-              <p>info@gtexthomes.com</p>
+        </div>
+    </header>
+
+    <section class="about">
+        <div class="container">
+            <div class="section-header">
+                <span>The GText Legacy</span>
+                <h2>Driving Global Economic Growth</h2>
+                <p>As the real estate arm of GText Holdings, we are part of a global conglomerate driving change across industries. GText Homes is dedicated to creating sustainable, high-value real estate solutions across Africa and beyond.</p>
             </div>
-          </div>
         </div>
-        <div id="footer-socials" class="social-links-premium">
-          <!-- Socials dynamically rendered from data.js -->
-        </div>
-    </div>
-      <div class="footer-links">
-        <!-- <div class="footer-column">
-          <h4>Useful Links</h4>
-          <ul class="link-list">
-            <li><a href="#">Jasper Gardenia</a></li>
-            <li><a href="#">Gtext Homes USA</a></li>
-            <li><a href="#">Gtext Lands</a></li>
-            <li><a href="#">Gtext and Associates</a></li>
-            <li><a href="#">Gvest Global</a></li>
-            <li><a href="#">Gtext Holdings</a></li>
-          </ul>
-        </div> -->
-        <div class="footer-column">
-          <h4>Quick Links</h4>
-          <ul class="link-list">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <!-- <li><a href="#services">Services</a></li> -->
-            <li><a href="#projects">Projects</a></li>
-            <!-- <li><a href="#insights">Blog</a></li> -->
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <p>Copyright © Gtext Homes
-          <script>document.write(new Date().getFullYear());</script>. All Rights Reserved
-        </p>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- Property Detail Modal -->
-  <div id="detail-modal" class="modal" aria-hidden="true">
-    <div class="modal-overlay" data-close></div>
-    <div class="modal-container">
-      <button class="modal-close" data-close aria-label="Close modal">&times;</button>
-      <div id="modal-detail-content" class="modal-scroll-content">
-        <!-- Content injected via JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Inquiry / Buy Modal (Lead Gen) -->
-  <div id="inquiry-modal" class="modal" aria-hidden="true">
-    <div class="modal-overlay" data-close></div>
-    <div class="modal-container">
-      <button class="modal-close" data-close aria-label="Close modal">&times;</button>
-      <div class="modal-scroll-content">
-        <div class="modal-header" style="padding: 0 0 20px 0;">
-          <h2>Secure Your Investment</h2>
-          <p>Fill in your details and our team will contact you shortly.</p>
+    <section id="properties" class="properties">
+        <div class="container">
+            <div class="section-header">
+                <span>Curated Selection</span>
+                <h2>Featured Estates</h2>
+            </div>
+            <div class="property-grid">
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Estate 1">
+                    <div class="property-info">
+                        <h3>Sardius Estate</h3>
+                        <p>Luxury smart homes in the heart of the city.</p>
+                        <div class="property-meta">
+                            <span>Starting from $250k</span>
+                            <span>Lagos, NG</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Estate 2">
+                    <div class="property-info">
+                        <h3>Jasper Smart City</h3>
+                        <p>Integrated living with AI-powered security.</p>
+                        <div class="property-meta">
+                            <span>Starting from $400k</span>
+                            <span>Abuja, NG</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6199f7d009?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Estate 3">
+                    <div class="property-info">
+                        <h3>Sapphire Court</h3>
+                        <p>Exclusive luxury apartments with panoramic views.</p>
+                        <div class="property-meta">
+                            <span>Starting from $180k</span>
+                            <span>Dubai, UAE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <form id="lead-gen-form" class="lead-form" style="padding: 0;">
-          <div class="form-group">
-            <label for="full-name">Full Name</label>
-            <input type="text" id="full-name" name="name" placeholder="John Doe" required>
-          </div>
-          <div class="form-group">
-            <label for="email-addr">Email Address</label>
-            <input type="email" id="email-addr" name="email" placeholder="john@example.com" required>
-          </div>
-          <div class="form-group">
-            <label for="phone-num">Phone Number</label>
-            <input type="tel" id="phone-num" name="phone" placeholder="+234..." required>
-          </div>
-          <div class="form-group">
-            <label for="property-select">Interested Property</label>
-            <select id="property-select" name="property" required>
-              <option value="4 Bedroom Terrace Duplex">4 Bedroom Terrace Duplex - Ibeju-Lekki</option>
-              <option value="5 Bedroom Terrace Duplex">5 Bedroom Terrace Duplex - Ibeju-Lekki</option>
-              <option value="5 Bedroom Fully Detached with BQ">5 Bedroom Fully Detached with BQ - Abuja</option>
-              <option value="4 Bedroom Fully Detached with BQ">4 Bedroom Fully Detached with BQ - Abuja</option>
-              <option value="Land - 400 SQM">Land - 400 SQM - Ibeju-Lekki</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="units">Number of Units</label>
-            <input type="number" id="units" name="units" min="1" value="1" required>
-          </div>
-          <button type="submit" class="btn btn-accent btn-full">Submit Inquiry</button>
-        </form>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="properties.js"></script>
-  <script src="leadership.js"></script>
-  <script src="blog.js"></script>
-  <script src="config.js"></script>
-  <script src="horizon-animation.js"></script>
-  <script src="script.js"></script>
+    <section id="why" class="why">
+        <div class="container">
+            <div class="why-content">
+                <div class="why-text">
+                    <span>The Advantage</span>
+                    <h2>Why Invest with GText Homes?</h2>
+                    <div class="feature-item">
+                        <h4>Smart Technology</h4>
+                        <p>Every GText home is integrated with state-of-the-art automation systems for security and convenience.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>Guaranteed ROI</h4>
+                        <p>Our properties are strategically located in high-growth corridors, ensuring maximum value appreciation.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>Premium Craftsmanship</h4>
+                        <p>We work with global architectural partners to deliver world-class finishing and durability.</p>
+                    </div>
+                </div>
+                <div class="why-img">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Office" style="width:100%; border-radius: 20px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="footer-logo">GTEXT<span style="color:var(--brand-red)">HOLDINGS</span></div>
+                    <p>Driving global economic growth through innovation in real estate, investment, and technology.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Properties</h4>
+                    <ul>
+                        <li><a href="#">Residential</a></li>
+                        <li><a href="#">Commercial</a></li>
+                        <li><a href="#">Land Acquisition</a></li>
+                        <li><a href="#">Smart Cities</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Media</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Subsidiaries</h4>
+                    <ul>
+                        <li><a href="#">GText Land</a></li>
+                        <li><a href="#">GText Farms</a></li>
+                        <li><a href="#">GText Hub</a></li>
+                        <li><a href="#">GText Academy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
 </body>
-
 </html>

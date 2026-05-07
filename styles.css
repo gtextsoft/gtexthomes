@@ -295,7 +295,9 @@ a {
 }
 
 .hero-content .eyebrow {
-  font-size: 1rem !important;
+  font-size: 0.6rem !important;
+  color: #fafafa;
+  margin-block: 50px 30px;
 }
 
 .hero-kicker {
