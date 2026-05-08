@@ -1,0 +1,9 @@
+    {
+  "redirects":  [
+    {
+      "source": "/careers",
+      "destination": "https://gtextcareer.vercel.app/",
+      "permanent": false
+    }
+  ]
+}
