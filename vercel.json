@@ -4,6 +4,11 @@
       "source": "/careers",
       "destination": "https://gtextcareer.vercel.app/",
       "permanent": false
+    },
+         {
+      "source": "/payment",
+      "destination": "https://zfrmz.com/tSR5t8A8dl6abBqOGBTh",
+      "permanent": false
     }
   ]
 }
