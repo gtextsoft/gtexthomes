@@ -1,60 +1,101 @@
+const GTEXT_ESTATES = [
+  {
+    id: "jasper-smart-city-abuja",
+    title: "Jasper Smart City",
+    subtitle: "Abuja's Premier Integrated Smart Estate",
+    location: "Airport Road, Abuja",
+    price: "From N195M",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=1200&q=80",
+    badge: "Smart Living",
+    category: "residential",
+    description:
+      "Jasper Smart City is a fully integrated smart estate on Abuja's high-growth Airport Road corridor. Designed for modern families and investors, the community combines AI-powered security, green architecture, and premium infrastructure within a gated, master-planned environment.",
+    homeTypes: [
+      "4 Bedroom Fully Detached with BQ — from N195M",
+      "5 Bedroom Fully Detached with BQ — from N245M",
+      "Terrace Duplexes — from N243M"
+    ],
+    landmarks: [
+      "Nnamdi Azikiwe International Airport",
+      "Centenary City",
+      "National Stadium",
+      "Abuja Central Business District"
+    ],
+    features: [
+      "AI-Powered Security & Smart Home Automation",
+      "24/7 Power Supply",
+      "Gated Community with Perimeter Fencing",
+      "Treated Water & Central Sewage",
+      "Green Estate Landscaping",
+      "Children's Play Area & Gym",
+      "Good Road Network",
+      "Freehold Title Documentation"
+    ]
+  },
+  {
+    id: "jasper-gardenia-ibeju-lekki",
+    title: "Jasper Gardenia",
+    subtitle: "Garden-Inspired Luxury in Ibeju-Lekki",
+    location: "Ibeju-Lekki, Lagos",
+    price: "From N243M",
+    image:
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+    badge: "High ROI",
+    category: "residential",
+    description:
+      "Jasper Gardenia is a serene, garden-themed luxury estate in the heart of Ibeju-Lekki — one of Lagos's fastest-appreciating corridors. Surrounded by world-class infrastructure including the Lekki Deep Seaport and Dangote Refinery, Gardenia offers terrace duplexes and detached homes built for comfort, security, and long-term value.",
+    homeTypes: [
+      "4 Bedroom Terrace Duplex — N243M",
+      "5 Bedroom Terrace Duplex — N284M",
+      "Land Parcels — 400 SQM from N50M"
+    ],
+    landmarks: [
+      "Lekki Deep Seaport",
+      "Dangote Refinery & Fertilizer Plant",
+      "Lekki Free Trade Zone",
+      "Eleko Beach",
+      "Amen Estate",
+      "La Campagne Tropicana"
+    ],
+    features: [
+      "Smart Estate Technology",
+      "Green & Sustainable Design",
+      "Gated Community Security",
+      "24/7 Power Supply",
+      "Treated Water System",
+      "Central Sewage",
+      "Paved Estate Roads",
+      "Play Area, Gym & Recreation Zones"
+    ]
+  }
+];
+
 const GTEXT_PROPERTIES = [
   {
-    id: "4-bedroom-terrace",
-    title: "4 Bedroom Terrace Duplex",
-    price: "N243M",
-    location: "Ibeju-Lekki, Lagos",
-    image: "images/terrace-duplex.png",
-    badge: "High ROI",
-    landmarks: [
-      "Eleko beach", "Amen estate", "Lekki Deep Seaport", "Dangote jetty",
-      "Chaka resort", "Honey land beach resort", "Dangote fertilizer & Refinery plant",
-      "La campagne", "Lekki beach and golf resort"
-    ],
-    features: ["Green Estate", "Smart Estate", "Cen. Sewage System", "Good Road", "Gated Community", "Security", "Treated Water", "24/7 Power", "Play Area", "Gym"]
-  },
-  {
-    id: "5-bedroom-terrace",
-    title: "5 Bedroom Terrace Duplex",
-    price: "N284M",
-    location: "Ibeju-Lekki, Lagos",
-    image: "images/terrace-duplex.png",
-    badge: "Fast Appreciation",
-    landmarks: [
-      "Eleko beach", "Amen estate", "Lekki Deep Seaport", "Dangote jetty",
-      "Chaka resort", "Honey land beach resort", "Dangote fertilizer & Refinery plant",
-      "La campagne", "Lekki beach and golf resort"
-    ],
-    features: ["Green Estate", "Smart Estate", "Cen. Sewage System", "Good Road", "Gated Community", "Security", "Treated Water", "24/7 Power", "Play Area", "Gym"]
-  },
-  {
-    id: "5-bedroom-detached",
-    title: "5 Bedroom Fully Detached with BQ",
-    price: "N245M",
-    location: "Airport Road, Abuja",
-    image: "images/detached-duplex.png",
-    badge: "Limited Units",
-    landmarks: ["Nnamdi Azikiwe Int'l Airport", "Centenary City", "National Stadium"],
-    features: ["Green Estate", "Smart Estate", "Security", "24/7 Power", "Gym"]
-  },
-  {
-    id: "4-bedroom-detached",
-    title: "4 Bedroom Fully Detached with BQ",
-    price: "N195M",
-    location: "Airport Road, Abuja",
-    image: "images/detached-duplex.png",
-    badge: "Best Value",
-    landmarks: ["Nnamdi Azikiwe Int'l Airport", "Centenary City"],
-    features: ["Green Estate", "Smart Estate", "Security", "24/7 Power"]
-  },
-  {
-    id: "land-400",
-    title: "Land - 400 SQM",
+    id: "land-400-gardenia",
+    title: "Land — 400 SQM",
+    estate: "Jasper Gardenia",
     price: "N50M",
     location: "Ibeju-Lekki, Lagos",
-    image: "images/estate-concept.png",
+    image:
+      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
     badge: "50% Discount",
-    landmarks: ["Lekki Deep Seaport", "Dangote Refinery", "Lekki Free Trade Zone"],
-    features: ["Gated Community", "Good Road", "Treated Water", "Security"]
+    category: "land",
+    description: "Prime land parcel within Jasper Gardenia with ready infrastructure and high appreciation potential.",
+    features: ["Gated Community", "Good Road", "Treated Water", "Security", "Freehold Title"]
+  },
+  {
+    id: "land-600-gardenia",
+    title: "Land — 600 SQM",
+    estate: "Jasper Gardenia",
+    price: "N72M",
+    location: "Ibeju-Lekki, Lagos",
+    image:
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    badge: "Limited Plots",
+    category: "land",
+    description: "Spacious plot ideal for custom builds or long-term land banking in Ibeju-Lekki.",
+    features: ["Gated Community", "Good Road", "Treated Water", "Security", "Freehold Title"]
   }
 ];
