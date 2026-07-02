@@ -126,7 +126,7 @@ function renderEstateCard(estate, compact) {
     .join("");
 
   return `
-    <article class="estate-card reveal" id="${estate.id}" data-category="${estate.category}">
+    <article class="estate-card" id="${estate.id}" data-category="${estate.category}">
       <div class="estate-card-media">
         <img src="${estate.image}" alt="${estate.title} — ${estate.location}" loading="lazy">
         <span class="property-badge">${estate.badge}</span>
@@ -157,7 +157,12 @@ function renderEstateCard(estate, compact) {
 
 function initEstateRendering() {
   const container = document.getElementById("estate-list");
-  if (!container || typeof GTEXT_ESTATES === "undefined") return;
+  if (!container) return;
+  if (typeof GTEXT_ESTATES === "undefined") {
+    container.innerHTML =
+      '<p style="text-align:center;color:#78716c;padding:2rem;">Property data could not load. Open this site through a web server (e.g. Live Server) or visit the deployed site.</p>';
+    return;
+  }
 
   const path = window.location.pathname.replace(/\/$/, "") || "/";
   const isHome =
@@ -165,7 +170,6 @@ function initEstateRendering() {
   const list = isHome ? GTEXT_ESTATES : GTEXT_ESTATES;
 
   container.innerHTML = list.map((e) => renderEstateCard(e, isHome)).join("");
-  refreshRevealElements();
 }
 
 function initLandRendering() {
@@ -178,7 +182,7 @@ function initLandRendering() {
   container.innerHTML = land
     .map(
       (p) => `
-    <article class="property-card reveal" id="${p.id}" data-category="${p.category}">
+    <article class="property-card" id="${p.id}" data-category="${p.category}">
       <div class="property-badge">${p.badge}</div>
       <img src="${p.image}" alt="${p.title} at ${p.estate}, ${p.location}" loading="lazy">
       <div class="property-info">
@@ -193,7 +197,6 @@ function initLandRendering() {
     </article>`
     )
     .join("");
-  refreshRevealElements();
 }
 
 function initInvestmentRendering() {
@@ -202,7 +205,7 @@ function initInvestmentRendering() {
 
   container.innerHTML = GTEXT_INVESTMENTS.map(
     (inv) => `
-    <article class="fractional-card reveal" id="${inv.id}">
+    <article class="fractional-card" id="${inv.id}">
       <div class="fractional-card-media">
         <img src="${inv.image}" alt="${inv.title}" loading="lazy">
         <span class="property-badge">${inv.badge}</span>
@@ -223,7 +226,6 @@ function initInvestmentRendering() {
       </div>
     </article>`
   ).join("");
-  refreshRevealElements();
 }
 
 function initBlogRendering() {
@@ -232,14 +234,13 @@ function initBlogRendering() {
 
   container.innerHTML = GTEXT_BLOG.map(
     (b) => `
-    <article class="blog-card reveal" id="${b.slug}">
+    <article class="blog-card" id="${b.slug}">
       <span class="blog-date">${b.date} · ${b.author}</span>
       <h3>${b.title}</h3>
       <p>${b.excerpt}</p>
       <a href="/contact.html" class="btn-link">Read More →</a>
     </article>`
   ).join("");
-  refreshRevealElements();
 }
 
 function initLeadershipRendering() {
@@ -248,7 +249,7 @@ function initLeadershipRendering() {
 
   container.innerHTML = GTEXT_LEADERSHIP.map(
     (l) => `
-    <article class="leadership-card reveal">
+    <article class="leadership-card">
       <div class="leadership-avatar">${l.name.replace(/^Dr\s/, "").charAt(0)}</div>
       <h3>${l.name}</h3>
       <p class="leadership-title">${l.title}</p>
@@ -264,10 +265,16 @@ function initTestimonials() {
   const testimonials =
     typeof GTEXT_TESTIMONIALS !== "undefined" ? GTEXT_TESTIMONIALS : [];
 
+  if (!testimonials.length) {
+    container.innerHTML =
+      '<p style="text-align:center;color:#78716c;grid-column:1/-1;">Testimonials could not load. Check that testimonials.js is included.</p>';
+    return;
+  }
+
   container.innerHTML = testimonials
     .map(
       (t) => `
-    <blockquote class="testimonial-card reveal">
+    <blockquote class="testimonial-card">
       <p>"${t.quote}"</p>
       <footer>
         <strong>${t.name}</strong>
@@ -276,7 +283,26 @@ function initTestimonials() {
     </blockquote>`
     )
     .join("");
-  refreshRevealElements();
+
+  renderGoogleReviewsLink(container);
+}
+
+function renderGoogleReviewsLink(container) {
+  const reviewsUrl =
+    (typeof GTEXT_CONFIG !== "undefined" && GTEXT_CONFIG.googleReviewsUrl) || "";
+  if (!reviewsUrl) return;
+
+  const parent = container.parentElement;
+  if (!parent || parent.querySelector(".google-reviews-cta")) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "google-reviews-cta";
+  wrap.innerHTML = `
+    <a href="${reviewsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+      See more reviews on Google
+    </a>`;
+  parent.appendChild(wrap);
 }
 
 (function prefillContactForm() {

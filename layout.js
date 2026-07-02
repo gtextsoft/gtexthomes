@@ -57,7 +57,7 @@
             </nav>
             <div class="header-actions">
               <a href="tel:${contact.phoneRaw}" class="header-phone">${contact.phone}</a>
-              <a href="/contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
+              <a href="${cfg.calendlyUrl || "/contact.html"}" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer">Get a Quote</a>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@
               <ul>
                 <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                 <li><a href="/terms.html">Terms &amp; Conditions</a></li>
-                <li><a href="/payment">Make a Payment</a></li>
+                <!-- <li><a href="/payment">Make a Payment</a></li> -->
               </ul>
             </div>
           </div>
@@ -123,6 +123,72 @@
           </div>
         </div>
       </footer>`;
+  }
+
+  function renderFAQ() {
+    const faqs = cfg.faqs || [];
+    if (!faqs.length) return;
+
+    const footerEl = document.getElementById("site-footer");
+    if (!footerEl) return;
+    if (document.getElementById("faq-section")) return;
+
+    const items = faqs
+      .map(
+        (f, i) => `
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-${i}">
+            <span>${f.q}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-answer-${i}" role="region">
+            <p>${f.a}</p>
+          </div>
+        </div>`
+      )
+      .join("");
+
+    const section = document.createElement("section");
+    section.id = "faq-section";
+    section.className = "faq-section section-alt";
+    section.innerHTML = `
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Need Answers?</span>
+          <h2>Frequently Asked Questions</h2>
+          <p>Everything you need to know about buying, investing, and working with GText Homes.</p>
+        </div>
+        <div class="faq-list">${items}</div>
+      </div>`;
+
+    footerEl.parentNode.insertBefore(section, footerEl);
+
+    section.querySelectorAll(".faq-question").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".faq-item");
+        const isOpen = item.classList.toggle("is-open");
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
+
+    injectFAQSchema(faqs);
+  }
+
+  function injectFAQSchema(faqs) {
+    if (document.getElementById("faq-schema")) return;
+    const script = document.createElement("script");
+    script.id = "faq-schema";
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a }
+      }))
+    });
+    document.head.appendChild(script);
   }
 
   function renderWhatsApp() {
@@ -179,6 +245,7 @@
   }
 
   renderHeader();
+  renderFAQ();
   renderFooter();
   renderWhatsApp();
   injectSchema();

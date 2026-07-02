@@ -1032,6 +1032,100 @@ section {
     background: var(--bg-light);
 }
 
+/* ── FAQ ── */
+.faq-section {
+    padding: 100px 0;
+}
+
+.faq-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-align: left;
+    line-height: 1.4;
+}
+
+.faq-icon {
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    color: var(--brand-red);
+    transition: transform 0.3s ease;
+    line-height: 1;
+}
+
+.faq-item.is-open .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-item.is-open .faq-answer {
+    max-height: 400px;
+}
+
+.faq-answer p {
+    padding: 0 1.5rem 1.35rem;
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ── Google reviews CTA ── */
+.google-reviews-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.btn-outline-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-outline-dark:hover {
+    border-color: var(--brand-red);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
 /* ── Legal pages ── */
 .legal-content {
     max-width: 800px;
