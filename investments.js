@@ -7,8 +7,7 @@ const GTEXT_INVESTMENTS = [
     projectedRoi: "18–22% annually",
     tenure: "24 months",
     badge: "Most Popular",
-    image:
-      "https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.investmentChart,
     description:
       "Own a fractional share in Jasper Smart City, Abuja's flagship smart estate. Investors earn returns from property appreciation and rental income without full property ownership.",
     highlights: [
@@ -26,8 +25,7 @@ const GTEXT_INVESTMENTS = [
     projectedRoi: "20–25% annually",
     tenure: "18 months",
     badge: "High Demand",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.land,
     description:
       "Participate in the growth of Ibeju-Lekki's premier garden estate. Fractional units backed by land and development assets in the Lekki corridor.",
     highlights: [
@@ -45,8 +43,7 @@ const GTEXT_INVESTMENTS = [
     projectedRoi: "15–18% annually",
     tenure: "12 months",
     badge: "Starter Plan",
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.duplex,
     description:
       "An accessible entry into GText's Sardius Group Estate portfolio. Ideal for first-time real estate investors seeking steady, predictable returns.",
     highlights: [
@@ -64,8 +61,7 @@ const GTEXT_INVESTMENTS = [
     projectedRoi: "22–28% annually",
     tenure: "36 months",
     badge: "Premium",
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.premium,
     description:
       "Premium fractional ownership in the Emerald Group Estate. Higher ticket, longer tenure, and enhanced returns for seasoned investors.",
     highlights: [
@@ -83,8 +79,7 @@ const GTEXT_INVESTMENTS = [
     projectedRoi: "12–15% annually",
     tenure: "12 months",
     badge: "Land Banking",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.land,
     description:
       "Pool capital with other investors to acquire strategic land parcels in Ibeju-Lekki. Benefit from land appreciation driven by port, refinery, and free zone development.",
     highlights: [
@@ -102,8 +97,7 @@ const GTEXT_INVESTMENTS = [
     projectedRoi: "17–20% annually",
     tenure: "24 months",
     badge: "New Launch",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.modern,
     description:
       "New fractional offering in the Beryl Group Estate. Combine residential development upside with structured co-ownership returns.",
     highlights: [

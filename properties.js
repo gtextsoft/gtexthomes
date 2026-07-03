@@ -5,8 +5,7 @@ const GTEXT_ESTATES = [
     subtitle: "Abuja's Premier Integrated Smart Estate",
     location: "Airport Road, Abuja",
     price: "From N195M",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=1200&q=80",
+    image: GTEXT_IMAGES.estates.jasperSmartCity,
     badge: "Smart Living",
     category: "residential",
     description:
@@ -39,8 +38,7 @@ const GTEXT_ESTATES = [
     subtitle: "Garden-Inspired Luxury in Ibeju-Lekki",
     location: "Ibeju-Lekki, Lagos",
     price: "From N243M",
-    image:
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+    image: GTEXT_IMAGES.estates.jasperGardenia,
     badge: "High ROI",
     category: "residential",
     description:
@@ -78,8 +76,7 @@ const GTEXT_PROPERTIES = [
     estate: "Jasper Gardenia",
     price: "N50M",
     location: "Ibeju-Lekki, Lagos",
-    image:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.land,
     badge: "50% Discount",
     category: "land",
     description: "Prime land parcel within Jasper Gardenia with ready infrastructure and high appreciation potential.",
@@ -91,8 +88,7 @@ const GTEXT_PROPERTIES = [
     estate: "Jasper Gardenia",
     price: "N72M",
     location: "Ibeju-Lekki, Lagos",
-    image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+    image: GTEXT_IMAGES.content.landAlt,
     badge: "Limited Plots",
     category: "land",
     description: "Spacious plot ideal for custom builds or long-term land banking in Ibeju-Lekki.",

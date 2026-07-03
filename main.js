@@ -2,6 +2,8 @@
 let revealObserver;
 
 document.addEventListener("DOMContentLoaded", () => {
+  initPageImages();
+  initImageFallback();
   initStickyHeader();
   initMobileNav();
   initInquiryForms();
@@ -13,6 +15,36 @@ document.addEventListener("DOMContentLoaded", () => {
   initTestimonials();
   initSectionReveals();
 });
+
+function initPageImages() {
+  if (typeof GTEXT_IMAGES === "undefined") return;
+
+  document.querySelectorAll("[data-hero]").forEach((img) => {
+    const key = img.dataset.hero;
+    if (GTEXT_IMAGES.heroes[key]) img.src = GTEXT_IMAGES.heroes[key];
+  });
+
+  document.querySelectorAll("[data-img]").forEach((img) => {
+    const key = img.dataset.img;
+    if (GTEXT_IMAGES.content[key]) img.src = GTEXT_IMAGES.content[key];
+  });
+}
+
+function initImageFallback() {
+  const fallback =
+    typeof GTEXT_IMAGES !== "undefined" ? GTEXT_IMAGES.fallback : "";
+
+  document.addEventListener(
+    "error",
+    (e) => {
+      const img = e.target;
+      if (img.tagName !== "IMG" || !fallback || img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = "true";
+      img.src = fallback;
+    },
+    true
+  );
+}
 
 function initStickyHeader() {
   const header = document.getElementById("main-header");
@@ -128,7 +160,7 @@ function renderEstateCard(estate, compact) {
   return `
     <article class="estate-card" id="${estate.id}" data-category="${estate.category}">
       <div class="estate-card-media">
-        <img src="${estate.image}" alt="${estate.title} — ${estate.location}" loading="lazy">
+        <img src="${estate.image}" alt="${estate.title} — ${estate.location}" loading="lazy" decoding="async">
         <span class="property-badge">${estate.badge}</span>
       </div>
       <div class="estate-card-body">
