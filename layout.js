@@ -125,15 +125,23 @@
       </footer>`;
   }
 
+  function getPageKey() {
+    if (isHome) return "home";
+    return currentSlug;
+  }
+
   function renderFAQ() {
-    const faqs = cfg.faqs || [];
-    if (!faqs.length) return;
+    const pageFaq =
+      typeof GTEXT_FAQS !== "undefined" ? GTEXT_FAQS[getPageKey()] : null;
+    if (!pageFaq || !pageFaq.items?.length) return;
 
     const footerEl = document.getElementById("site-footer");
     if (!footerEl) return;
     if (document.getElementById("faq-section")) return;
 
-    const items = faqs
+    const { eyebrow, title, subtitle, items } = pageFaq;
+
+    const faqItems = items
       .map(
         (f, i) => `
         <div class="faq-item">
@@ -154,11 +162,11 @@
     section.innerHTML = `
       <div class="container">
         <div class="section-header">
-          <span class="eyebrow">Need Answers?</span>
-          <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about buying, investing, and working with GText Homes.</p>
+          <span class="eyebrow">${eyebrow || "Need Answers?"}</span>
+          <h2>${title || "Frequently Asked Questions"}</h2>
+          <p>${subtitle || ""}</p>
         </div>
-        <div class="faq-list">${items}</div>
+        <div class="faq-list">${faqItems}</div>
       </div>`;
 
     footerEl.parentNode.insertBefore(section, footerEl);
@@ -171,7 +179,7 @@
       });
     });
 
-    injectFAQSchema(faqs);
+    injectFAQSchema(items);
   }
 
   function injectFAQSchema(faqs) {
