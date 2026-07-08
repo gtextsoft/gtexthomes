@@ -69,29 +69,29 @@ const GTEXT_ESTATES = [
   }
 ];
 
-const GTEXT_PROPERTIES = [
-  {
-    id: "land-400-gardenia",
-    title: "Land — 400 SQM",
-    estate: "Jasper Gardenia",
-    price: "N50M",
-    location: "Ibeju-Lekki, Lagos",
-    image: GTEXT_IMAGES.content.land,
-    badge: "50% Discount",
-    category: "land",
-    description: "Prime land parcel within Jasper Gardenia with ready infrastructure and high appreciation potential.",
-    features: ["Gated Community", "Good Road", "Treated Water", "Security", "Freehold Title"]
-  },
-  {
-    id: "land-600-gardenia",
-    title: "Land — 600 SQM",
-    estate: "Jasper Gardenia",
-    price: "N72M",
-    location: "Ibeju-Lekki, Lagos",
-    image: GTEXT_IMAGES.content.landAlt,
-    badge: "Limited Plots",
-    category: "land",
-    description: "Spacious plot ideal for custom builds or long-term land banking in Ibeju-Lekki.",
-    features: ["Gated Community", "Good Road", "Treated Water", "Security", "Freehold Title"]
-  }
-];
+// const GTEXT_PROPERTIES = [
+//   {
+//     id: "land-400-gardenia",
+//     title: "Land — 400 SQM",
+//     estate: "Jasper Gardenia",
+//     price: "N50M",
+//     location: "Ibeju-Lekki, Lagos",
+//     image: GTEXT_IMAGES.content.land,
+//     badge: "50% Discount",
+//     category: "land",
+//     description: "Prime land parcel within Jasper Gardenia with ready infrastructure and high appreciation potential.",
+//     features: ["Gated Community", "Good Road", "Treated Water", "Security", "Freehold Title"]
+//   },
+//   {
+//     id: "land-600-gardenia",
+//     title: "Land — 600 SQM",
+//     estate: "Jasper Gardenia",
+//     price: "N72M",
+//     location: "Ibeju-Lekki, Lagos",
+//     image: GTEXT_IMAGES.content.landAlt,
+//     badge: "Limited Plots",
+//     category: "land",
+//     description: "Spacious plot ideal for custom builds or long-term land banking in Ibeju-Lekki.",
+//     features: ["Gated Community", "Good Road", "Treated Water", "Security", "Freehold Title"]
+//   }
+// ];

@@ -31,6 +31,26 @@
     return icons[name] || "";
   }
 
+  function logoUrl() {
+    return (typeof GTEXT_IMAGES !== "undefined" && GTEXT_IMAGES.logo) || "/assets/gtexthomes-logo.png";
+  }
+
+  function injectFavicon() {
+    if (document.getElementById("site-favicon")) return;
+    const icon =
+      (typeof GTEXT_IMAGES !== "undefined" && GTEXT_IMAGES.favicon) || "/assets/favicon.png";
+    const link = document.createElement("link");
+    link.id = "site-favicon";
+    link.rel = "icon";
+    link.type = "image/png";
+    link.href = icon;
+    document.head.appendChild(link);
+    const apple = document.createElement("link");
+    apple.rel = "apple-touch-icon";
+    apple.href = icon;
+    document.head.appendChild(apple);
+  }
+
   function renderHeader() {
     const el = document.getElementById("site-header");
     if (!el) return;
@@ -46,7 +66,7 @@
       <header class="site-header" id="main-header">
         <div class="container header-inner">
           <a href="/" class="brand-link" aria-label="GText Homes Home">
-            <span class="brand">GTEXT<span class="brand-accent">HOMES</span></span>
+            <img src="${logoUrl()}" alt="GText Homes" class="brand-logo" width="160" height="52">
           </a>
           <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -80,7 +100,9 @@
         <div class="container">
           <div class="footer-grid">
             <div class="footer-info">
-              <div class="footer-logo">GTEXT<span class="brand-accent">HOMES</span></div>
+              <a href="/" class="footer-logo-link" aria-label="GText Homes Home">
+                <img src="${logoUrl()}" alt="GText Homes" class="footer-logo-img" width="180" height="58">
+              </a>
               <p>Driving global economic growth through innovation in real estate, investment, and technology.</p>
               <div class="footer-contact-block">
                 <p><strong>Phone:</strong> <a href="tel:${contact.phoneRaw}">${contact.phone}</a></p>
@@ -225,7 +247,7 @@
       "@type": "RealEstateAgent",
       name: cfg.siteName || "GText Homes",
       url: cfg.siteUrl || "https://www.gtexthomes.com",
-      logo: `${cfg.siteUrl || "https://www.gtexthomes.com"}/assets/logo.png`,
+      logo: `${cfg.siteUrl || "https://www.gtexthomes.com"}/assets/gtexthomes-logo.png`,
       telephone: contact.phone,
       email: contact.email,
       address: {
@@ -252,6 +274,7 @@
     document.head.appendChild(s2);
   }
 
+  injectFavicon();
   renderHeader();
   renderFAQ();
   renderFooter();
