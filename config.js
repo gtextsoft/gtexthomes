@@ -1,7 +1,7 @@
 const GTEXT_CONFIG = {
   siteName: "GText Homes",
   siteUrl: "https://www.gtexthomes.com",
-  ga4Id: "",
+  ga4Id: "G-NCNGY1GQNV",
 
   calendlyUrl: "https://calendly.com/gtexthomes",
   googleReviewsUrl: "https://share.google/SMaG2X6VkGs7pcHA0",
