@@ -7,8 +7,8 @@ const GTEXT_CONFIG = {
   googleReviewsUrl: "https://share.google/SMaG2X6VkGs7pcHA0",
 
   contact: {
-    phone: "+234 814 259 0965",
-    phoneRaw: "2348142590965",
+    phone: "+234 704 829 8485",
+    phoneRaw: "2347048298485",
     email: "info@gtexthomes.com",
     careersEmail: "careers@gtexthomes.com",
     address: "Ibeju-Lekki, Lagos, Nigeria",

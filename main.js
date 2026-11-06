@@ -128,7 +128,7 @@ function initInquiryForms() {
 
       const phoneRaw =
         (typeof GTEXT_CONFIG !== "undefined" && GTEXT_CONFIG.contact?.phoneRaw) ||
-        "2348142590965";
+        "2347048298485";
 
       const status = form.querySelector(".form-status");
       if (status) {

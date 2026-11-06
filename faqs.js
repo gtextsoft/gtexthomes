@@ -178,7 +178,7 @@ const GTEXT_FAQS = {
     items: [
       {
         q: "What are your contact details?",
-        a: "Phone: +234 814 259 0965 | Email: info@gtexthomes.com | Office: Ibeju-Lekki, Lagos, Nigeria | Hours: Mon – Sat, 8:00 AM – 5:00 PM."
+        a: "Phone: +234 704 829 8485 | Email: info@gtexthomes.com | Office: Ibeju-Lekki, Lagos, Nigeria | Hours: Mon – Sat, 8:00 AM – 5:00 PM."
       },
       {
         q: "How quickly will I get a response?",
